@@ -59,6 +59,7 @@ app.add_middleware(
         "http://localhost:5500",       # Live Server
         "http://127.0.0.1:5500",
         "https://qwerty-zcpd.onrender.com",       # Self (for static serving)
+        "https://qwerty-iota-three.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
