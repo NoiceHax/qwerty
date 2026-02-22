@@ -1,0 +1,43 @@
+# Core
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# Database
+sqlalchemy[asyncio]==2.0.35
+psycopg[binary]==3.2.4
+alembic==1.13.3
+
+# HTTP Client
+httpx==0.27.2
+
+# Background Jobs
+rq==1.16.2
+redis==5.1.1
+
+# Git & Repo Analysis
+gitpython==3.1.43
+
+# File handling
+python-multipart==0.0.12
+aiofiles==24.1.0
+
+# WebSocket
+websockets==13.1
+
+# Security
+python-jose==3.3.0
+
+# Testing
+pytest==8.3.3
+pytest-asyncio==0.24.0
+pytest-httpx==0.32.0
+aiosqlite==0.20.0
+
+# Utilities
+python-dotenv==1.0.1
+
+# AI
+google-generativeai>=0.8.0
+
