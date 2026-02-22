@@ -2,21 +2,14 @@
 import './login.css';
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getHealth } from '@/lib/api';
+
 
 const GITHUB_CLIENT_ID = "Ov23lik7WUwQYjJsz774";
 
 function LoginPageInner() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [systemStatus, setSystemStatus] = useState('checking');
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        getHealth()
-            .then(() => setSystemStatus('operational'))
-            .catch(() => setSystemStatus('offline'));
-    }, []);
 
     // Check if user is already logged in
     useEffect(() => {
@@ -27,6 +20,7 @@ function LoginPageInner() {
             })
             .catch(() => { });
     }, [router]);
+
 
     // Check for OAuth errors in URL
     useEffect(() => {
@@ -114,13 +108,7 @@ function LoginPageInner() {
                 </a>
             </div>
 
-            {/* System Status */}
-            <div className={`system-badge ${systemStatus === 'offline' ? 'offline' : ''}`}
-                style={systemStatus === 'offline' ? { background: 'rgba(239,68,68,0.1)', borderColor: 'rgba(239,68,68,0.2)', color: '#ef4444' } : systemStatus === 'checking' ? { background: 'rgba(234,179,8,0.1)', borderColor: 'rgba(234,179,8,0.2)', color: '#eab308' } : {}}
-            >
-                <span className="dot" style={systemStatus === 'offline' ? { background: '#ef4444' } : systemStatus === 'checking' ? { background: '#eab308' } : {}}></span>
-                {systemStatus === 'operational' ? 'SYSTEM OPERATIONAL' : systemStatus === 'offline' ? 'SYSTEM OFFLINE' : 'CHECKING STATUS...'}
-            </div>
+
 
             {/* Footer */}
             <footer className="login-footer">

@@ -2,7 +2,7 @@
 import './home.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getHealth } from '@/lib/api';
+
 
 const terminalLines = [
   { type: 'prompt', text: '→ qwerty scan --target production-api-v4' },
@@ -16,13 +16,7 @@ export default function HomePage() {
   const [visibleLines, setVisibleLines] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
-  const [backendStatus, setBackendStatus] = useState(null);
 
-  useEffect(() => {
-    getHealth()
-      .then((data) => setBackendStatus(data))
-      .catch(() => setBackendStatus(null));
-  }, []);
 
   useEffect(() => {
     const timers = [];
