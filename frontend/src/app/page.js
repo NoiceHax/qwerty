@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { getHealth } from '@/lib/api';
 
 const terminalLines = [
-  { type: 'prompt', text: '→ cyberguard scan --target production-api-v4' },
+  { type: 'prompt', text: '→ qwerty scan --target production-api-v4' },
   { type: 'info', text: '[INFO] Initializing security engine...' },
   { type: 'info', text: '[INFO] Running 14,204 vulnerability heuristics...' },
   { type: 'info', text: '[SCANNING] Analyzing cluster: kubernetes-cl...' },
@@ -41,18 +41,7 @@ export default function HomePage() {
       {/* Navbar */}
       <nav className="navbar">
         <div className="nav-brand">
-          <div className="nav-brand-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          CyberGuard
-        </div>
-        <div className="nav-links">
-          <a href="#">Solutions</a>
-          <a href="#">Intelligence</a>
-          <a href="#">Pricing</a>
-          <a href="#">Docs</a>
+          qwerty
         </div>
         <div className="nav-actions">
           <button className="nav-login" onClick={() => router.push('/login')}>Login</button>
@@ -167,7 +156,7 @@ export default function HomePage() {
       <section className="cta-section">
         <div className="cta-banner">
           <h2>Secure your infrastructure today.</h2>
-          <p>Join 500+ elite security teams securing their production environments with CyberGuard.</p>
+          <p>Join 500+ elite security teams securing their production environments with qwerty.</p>
           <div className="cta-actions">
             <button className="cta-primary" onClick={() => router.push('/login')}>Start Scanning Now</button>
             <button className="cta-secondary">Talk to Sales</button>
@@ -178,12 +167,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="home-footer">
         <div className="footer-brand">
-          <div className="footer-brand-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          CyberGuard
+          qwerty
         </div>
         <div className="footer-links">
           <a href="#">Privacy Policy</a>
@@ -191,7 +175,7 @@ export default function HomePage() {
           <a href="#">Security Status</a>
           <a href="#">Cookie Settings</a>
         </div>
-        <span className="footer-copy">© 2024 CyberGuard Intelligence Inc.</span>
+        <span className="footer-copy">© 2024 qwerty Inc.</span>
       </footer>
     </div>
   );

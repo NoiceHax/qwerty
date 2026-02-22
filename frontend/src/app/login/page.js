@@ -1,12 +1,16 @@
 "use client";
 import './login.css';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { getHealth } from '@/lib/api';
 
-export default function LoginPage() {
+const GITHUB_CLIENT_ID = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID;
+
+function LoginPageInner() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [systemStatus, setSystemStatus] = useState('checking');
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         getHealth()
@@ -14,9 +18,35 @@ export default function LoginPage() {
             .catch(() => setSystemStatus('offline'));
     }, []);
 
+    // Check if user is already logged in
+    useEffect(() => {
+        fetch('/api/auth/me')
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+                if (data?.authenticated) router.replace('/dashboard');
+            })
+            .catch(() => { });
+    }, [router]);
+
+    // Check for OAuth errors in URL
+    useEffect(() => {
+        const err = searchParams.get('error');
+        if (err) {
+            const messages = {
+                no_code: 'Authorization was cancelled.',
+                bad_verification_code: 'Authorization code expired. Please try again.',
+                server_error: 'Something went wrong. Please try again.',
+            };
+            setError(messages[err] || `Login failed: ${err}`);
+        }
+    }, [searchParams]);
+
     const handleLogin = () => {
-        // Placeholder: skip to dashboard (replace with real OAuth later)
-        router.push('/dashboard');
+        const params = new URLSearchParams({
+            client_id: GITHUB_CLIENT_ID,
+            scope: 'read:user user:email',
+        });
+        window.location.href = `https://github.com/login/oauth/authorize?${params}`;
     };
 
     return (
@@ -29,14 +59,28 @@ export default function LoginPage() {
                         <path d="M9 12l2 2 4-4" />
                     </svg>
                 </div>
-                <h1>CyberSafe</h1>
+                <h1>qwerty</h1>
                 <p>Enterprise Security Perimeter</p>
             </div>
 
             {/* Login Card */}
             <div className="login-card">
                 <h2>Secure Access</h2>
-                <p>Connect your account to continue to the dashboard.</p>
+                <p>Connect your GitHub account to continue to the dashboard.</p>
+
+                {error && (
+                    <div style={{
+                        background: 'rgba(239,68,68,0.1)',
+                        border: '1px solid rgba(239,68,68,0.3)',
+                        borderRadius: '8px',
+                        padding: '12px 16px',
+                        marginBottom: '16px',
+                        color: '#ef4444',
+                        fontSize: '0.85rem',
+                    }}>
+                        {error}
+                    </div>
+                )}
 
                 <button className="github-btn" onClick={handleLogin}>
                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -80,7 +124,7 @@ export default function LoginPage() {
 
             {/* Footer */}
             <footer className="login-footer">
-                <span>© 2024 CYBERSAFE TECHNOLOGIES INC.</span>
+                <span>© 2024 QWERTY INC.</span>
                 <div className="login-footer-links">
                     <a href="#">PRIVACY POLICY</a>
                     <a href="#">TERMS OF SERVICE</a>
@@ -88,5 +132,13 @@ export default function LoginPage() {
                 </div>
             </footer>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="login-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading...</p></div>}>
+            <LoginPageInner />
+        </Suspense>
     );
 }
