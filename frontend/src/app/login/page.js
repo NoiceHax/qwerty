@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getHealth } from '@/lib/api';
 
-const GITHUB_CLIENT_ID = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID;
+const GITHUB_CLIENT_ID = "Ov23lik7WUwQYjJsz774";
 
 function LoginPageInner() {
     const router = useRouter();
