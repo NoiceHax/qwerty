@@ -58,7 +58,7 @@ app.add_middleware(
         *settings.allowed_origins_list,
         "http://localhost:5500",       # Live Server
         "http://127.0.0.1:5500",
-        "http://localhost:8000",       # Self (for static serving)
+        "https://qwerty-zcpd.onrender.com",       # Self (for static serving)
     ],
     allow_credentials=True,
     allow_methods=["*"],

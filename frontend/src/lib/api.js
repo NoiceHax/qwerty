@@ -2,7 +2,7 @@
  * Centralized API client for the CyberSafe backend.
  */
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://qwerty-zcpd.onrender.com";
 
 /**
  * Generic fetch wrapper with error handling.
